@@ -1,3 +1,4 @@
+const { RSA_X931_PADDING } = require('constants');
 const express = require('express');
 const fs = require('fs');
 
@@ -70,6 +71,44 @@ app.post('/api/v1/tours', (req, res) => {
       });
     }
   );
+});
+
+app.patch('/api/v1/tours/:id', (req, res) => {
+  // not actually implemented
+
+  const id = req.params.id * 1;
+
+  if (id > tours.length) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID',
+    });
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour: '<Updated tour here>',
+    },
+  });
+});
+
+app.delete('/api/v1/tours/:id', (req, res) => {
+  // not actually implemented
+
+  const id = req.params.id * 1;
+
+  if (id > tours.length) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID',
+    });
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
 });
 
 const port = 3000;
