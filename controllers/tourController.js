@@ -5,6 +5,20 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 );
 
+// common parameter check functionality to be called as middleware in tourRoutes
+exports.checkID = (req, res, next, val) => {
+  console.log(`Tour ID is: ${val}`);
+
+  const id = req.params.id * 1;
+  if (id > tours.length) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID',
+    });
+  }
+  next();
+};
+
 // Handlers
 
 exports.getAllTours = (req, res) => {
@@ -61,15 +75,6 @@ exports.createTour = (req, res) => {
 exports.updateTour = (req, res) => {
   // not actually implemented
 
-  const id = req.params.id * 1;
-
-  if (id > tours.length) {
-    return res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID',
-    });
-  }
-
   res.status(200).json({
     status: 'success',
     data: {
@@ -80,15 +85,6 @@ exports.updateTour = (req, res) => {
 
 exports.deleteTour = (req, res) => {
   // not actually implemented
-
-  const id = req.params.id * 1;
-
-  if (id > tours.length) {
-    return res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID',
-    });
-  }
 
   res.status(204).json({
     status: 'success',
