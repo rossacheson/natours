@@ -6,8 +6,12 @@ const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
+console.log(process.env.NODE_ENV);
+
 // Middleware
-app.use(morgan('dev')); // logging middleware
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev')); // logging middleware
+}
 
 app.use(express.json()); // updates request object to include json from request body
 app.use(express.static(`${__dirname}/public`));
