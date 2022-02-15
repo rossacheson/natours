@@ -9,12 +9,12 @@ const router = express.Router();
 //   console.log(`Tour ID is: ${val}`);
 //   next();
 // });
-router.param('id', tourController.checkID);
+// router.param('id', tourController.checkID);
 
 router
   .route('/')
   .get(tourController.getAllTours)
-  .post(tourController.checkBody, tourController.createTour);
+  .post(tourController.createTour);
 router
   .route('/:id')
   .get(tourController.getTour)
